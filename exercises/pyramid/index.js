@@ -13,7 +13,22 @@
 //       '  #  '
 //       ' ### '
 //       '#####'
+//  (n*2)-1
 
-function pyramid(n) {}
+function pyramid(n) {
+ let rowLength = n * 2 - 1;
+ let center = Math.floor(rowLength / 2);
+ for (let row = 0; row < n; row++) {
+  let level = '';
+  for (let column = 0; column < rowLength; column++) {
+   if (center - row <= column && center + row >= column) {
+    level += '#';
+   } else {
+    level += ' ';
+   }
+  }
+  console.log(level);
+ }
+}
 
 module.exports = pyramid;
