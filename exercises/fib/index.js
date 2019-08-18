@@ -8,6 +8,14 @@
 // Example:
 //   fib(4) === 3
 
+}
+// using memoization
+// function fib(n, cache) {
+//  cache = cache || {};
+//  if (n < 2) return n;
+//  if (cache[n]) return cache[n];
+//  return (cache[n] = fib(n - 2, cache) + fib(n - 1, cache));
+// }
 
 // using recursion
 // function fib(n) {
