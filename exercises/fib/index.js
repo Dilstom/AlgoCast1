@@ -8,6 +8,13 @@
 // Example:
 //   fib(4) === 3
 
+const cache = {};
+function fib(n) {
+ if (n < 2) return n;
+
+ if (cache[n]) return cache[n];
+
+ return (cache[n] = fib(n - 2, cache) + fib(n - 1, cache));
 }
 // using memoization
 // function fib(n, cache) {
