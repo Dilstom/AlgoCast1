@@ -33,7 +33,18 @@ class HashTable {
   * @return {*} - the value associated with the key
   * const time
   */
- retrieve() {}
+ retrieve() {
+  const index = this._hash(key, this._tableSize);
+  //  console.log(this._storage[index])
+  if (this._storage[index]) {
+   for (let pair of this._storage[index]) {
+    if (pair[0] === key) {
+     console.log('res', pair[1]);
+     return pair[1];
+    }
+   }
+  }
+ }
  /*
   * Hashes string value into an integer that can be mapped to an array index
   * @param {string} str - the string to be hashed
