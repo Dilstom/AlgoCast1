@@ -35,13 +35,17 @@ What's the time complexity?
 
 function Stack(capacity) {
  // implement me...
- (this.storage = {}), (this.size = 0);
+ (this.capacity = capacity || Infinity), (this.storage = {}), (this.size = 0);
 }
 
 Stack.prototype.push = function(value) {
  // implement me...
- this.storage[this.size] = value;
- this.size++;
+ if (this.size === this.capacity) {
+  return 'Max capacity already reached. Remove element before adding a new one.';
+ } else {
+  this.storage[this.size] = value;
+  this.size++;
+ }
 };
 // Time complexity:
 
@@ -51,6 +55,9 @@ Stack.prototype.pop = function() {
  delete this.storage[this.size - 1];
  // this.storage[this.size-1] = null;
  this.size--;
+ if (this.size < 0) {
+  this.size = 0;
+ }
  return removed;
 };
 // Time complexity:
@@ -65,30 +72,41 @@ Stack.prototype.count = function() {
  // implement me...
  return this.size;
 };
+
+Stack.prototype.contains = function(el) {
+ // implement me...
+ for (let key in this.storage) {
+  if (this.storage[key] === el) {
+   return true;
+  }
+ }
+ return false;
+};
 // Time complexity:
 
 const newStack = new Stack();
 newStack.push(3);
 newStack.push(4);
-console.log('popped: ', newStack.pop());
+// console.log('popped: ', newStack.pop());
 newStack.push(5);
 newStack.push(6);
-console.log('popped: ', newStack.pop());
-console.log('peek: :', newStack.peek());
+// console.log('popped: ', newStack.pop());
+// console.log('peek: :', newStack.peek());
 
+console.log(newStack.contains(6));
 console.log(newStack);
 console.log(newStack.count());
 /*
-  *** Exercises:
-  1. Implement a stack with a min method which returns the minimum element currently in the stack. This method should have O(1) time complexity. Make sure your implementation handles duplicates.
-  2. Sort a stack so that its elements are in ascending order.
-  3. Given a string, determine if the parenthesis in the string are balanced.
-  Ex: balancedParens( 'sqrt(5*(3+8)/(4-2))' ) => true
-  Ex: balancedParens( 'Math.min(5,(6-3))(' ) => false
-  4. Towers of Hanoi - https://en.wikipedia.org/wiki/Tower_of_Hanoi
-  You are given three towers (stacks) and N disks, each of different size. You can move the disks according to three constraints:
-     1. only one disk can be moved at a time
-     2. when moving a disk, you can only use pop (remove the top element) and push (add to the top of a stack)
-     3. no disk can be placed on top of a disk that is smaller than it
-  The disks begin on tower#1. Write a function that will move the disks from tower#1 to tower#3 in such a way that none of the constraints are violated.
-   */
+     *** Exercises:
+     1. Implement a stack with a min method which returns the minimum element currently in the stack. This method should have O(1) time complexity. Make sure your implementation handles duplicates.
+     2. Sort a stack so that its elements are in ascending order.
+     3. Given a string, determine if the parenthesis in the string are balanced.
+     Ex: balancedParens( 'sqrt(5*(3+8)/(4-2))' ) => true
+     Ex: balancedParens( 'Math.min(5,(6-3))(' ) => false
+     4. Towers of Hanoi - https://en.wikipedia.org/wiki/Tower_of_Hanoi
+     You are given three towers (stacks) and N disks, each of different size. You can move the disks according to three constraints:
+        1. only one disk can be moved at a time
+        2. when moving a disk, you can only use pop (remove the top element) and push (add to the top of a stack)
+        3. no disk can be placed on top of a disk that is smaller than it
+     The disks begin on tower#1. Write a function that will move the disks from tower#1 to tower#3 in such a way that none of the constraints are violated.
+      */
