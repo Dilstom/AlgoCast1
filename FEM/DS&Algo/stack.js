@@ -35,7 +35,9 @@ What's the time complexity?
 
 function Stack(capacity) {
  // implement me...
- (this.capacity = capacity || Infinity), (this.storage = {}), (this.size = 0);
+ this.capacity = capacity || Infinity;
+ this.storage = {};
+ this.size = 0;
 }
 
 Stack.prototype.push = function(value) {
@@ -60,13 +62,13 @@ Stack.prototype.pop = function() {
  }
  return removed;
 };
-// Time complexity:
+// Time complexity: O(1)
 
 Stack.prototype.peek = function() {
  // implement me...
  return this.storage[this.size - 1];
 };
-// Time complexity:
+// Time complexity: O(1)
 
 Stack.prototype.count = function() {
  // implement me...
@@ -82,7 +84,7 @@ Stack.prototype.contains = function(el) {
  }
  return false;
 };
-// Time complexity:
+// Time complexity: O(n)
 
 const newStack = new Stack();
 newStack.push(3);
@@ -110,3 +112,65 @@ console.log(newStack.count());
         3. no disk can be placed on top of a disk that is smaller than it
      The disks begin on tower#1. Write a function that will move the disks from tower#1 to tower#3 in such a way that none of the constraints are violated.
       */
+
+function MinStack(capacity) {
+ this.capacity = capacity;
+ this.storage = {};
+ this._min = new Stack();
+ this.count = 0;
+}
+
+MinStack.prototype.push = function(el) {
+ if (this.count > this.capacity) {
+  return 'Max capacity already reached. Remove element before adding a new one.';
+ } else {
+  if (this._min.peek() < el) {
+   this._min.push(this._min.peek());
+  } else {
+   this._min.push(el);
+  }
+  this.storage[this.count] = el;
+  this.count++;
+ }
+};
+
+// MinStack.prototype.peek = function(){
+//   return this.storage[this.count-1]
+// }
+MinStack.prototype.pop = function() {
+ this._min.pop();
+ if (this.count === 0) {
+  return;
+ }
+ const removed = this.storage[this.count - 1];
+ delete this.storage[this.count - 1];
+ this.count--;
+ return removed;
+};
+
+MinStack.prototype.count = function() {
+ return this.count;
+};
+
+MinStack.prototype.peek = function() {
+ return this.storage[this.count - 1];
+};
+
+MinStack.prototype.min = function() {
+ return this._min.peek();
+};
+
+const minS = new MinStack();
+minS.push(1);
+minS.push(2);
+minS.push(3);
+minS.push(2);
+// minS.pop();
+// minS.pop();
+// minS.pop();
+// minS.pop();
+// minS.pop();
+console.log('count: ', minS.count);
+console.log('peek: ', minS.peek());
+console.log('min: ', minS.min());
+console.log(minS);
