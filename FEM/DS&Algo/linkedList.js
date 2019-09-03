@@ -91,7 +91,7 @@ LinkedList.prototype.forEach = function(callback) {
  let node = this.head;
  while (node) {
   console.log('cd node: ', node);
-  node = this.head.next;
+  node = node.next;
  }
 };
 // Time complexity: O(n)
