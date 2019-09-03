@@ -118,34 +118,64 @@ LinkedList.prototype.insertAfter = function(node, value) {
  node.next = newN;
  newN.next = oldN;
  //  console.log('newN next: ', newN)
- if (node === this.tail) node.next = newN;
+ if (node === this.tail) this.tail = newN;
+
  return newN.value;
 };
 // Time complexity:
 
 LinkedList.prototype.removeAfter = function(node) {
  // implement me...
+ //  console.log(node, node.next)
+ if (node.next) {
+  //  delete node.next;
+  let oldNodeNext = node.next;
+  node.next = node.next.next;
+  if (oldNodeNext === this.tail) this.tail = node;
+  return oldNodeNext.value;
+ }
 };
-// Time complexity:
+// Time complexity: O(1)
 
 LinkedList.prototype.insertHead = function(value) {
  // implement me...
+ let newN = new Node(value);
+ let oldHead = this.head;
+ this.head = newN;
+ newN.next = oldHead;
+ return newN.value;
 };
-// Time complexity:
+// Time complexity: O(1)
 
 LinkedList.prototype.removeHead = function() {
  // implement me...
+ let oldHead = this.head;
+ this.head = this.head.next;
+ oldHead.next = null;
+ return oldHead.value;
 };
 
 LinkedList.prototype.findNode = function(value) {
  // implement me...
+ console.log('find value', value);
+ let node = this.head;
+ while (node) {
+  if (node.value === value) {
+   return node;
+  }
+  node = node.next;
+ }
 };
 // Time complexity:
 
 LinkedList.prototype.appendToTail = function(value) {
  // implement me...
+ let newNode = new Node(value);
+ this.tail.next = newNode;
+ this.tail = newNode;
+ return newNode;
 };
-// Time complexity:
+// Time complexity: O(1)
 
 // PART 2:
 
@@ -160,48 +190,48 @@ LinkedList.prototype.removeBefore = function(node) {
 // Time complexity:
 
 /*
-     *** Exercises:
-     
-     1. Implement a stack using a linked list.
-     
-     2. Implement a queue using a linked list.
-     
-     3. Write a method that remove duplicates from an unsorted linked list. What is the time complexity? Re-implement the method without using any additional storage structure (constant space complexity). What is the time complexity?
-     
-     4. Reverse a linked list. Do not use any additional storage structures.
-     
-     5. Find the kth to last element of a singly linked list.
-     
-     6. Detect if a linked list has a loop.
-     
-     7. Check if a linked list is a palindrome.
-     
-     8. Given two linked lists that represent numbers, return a linked list that represents the sum of those numbers:
-       4 2 5        (4 -> 2 -> 5)
-     + 7 3 1        (7 -> 3 -> 1)
-     --------
-     1 1 5 6   (1 -> 1 -> 5 -> 6)
-     
-      */
+        *** Exercises:
+        
+        1. Implement a stack using a linked list.
+        
+        2. Implement a queue using a linked list.
+        
+        3. Write a method that remove duplicates from an unsorted linked list. What is the time complexity? Re-implement the method without using any additional storage structure (constant space complexity). What is the time complexity?
+        
+        4. Reverse a linked list. Do not use any additional storage structures.
+        
+        5. Find the kth to last element of a singly linked list.
+        
+        6. Detect if a linked list has a loop.
+        
+        7. Check if a linked list is a palindrome.
+        
+        8. Given two linked lists that represent numbers, return a linked list that represents the sum of those numbers:
+          4 2 5        (4 -> 2 -> 5)
+        + 7 3 1        (7 -> 3 -> 1)
+        --------
+        1 1 5 6   (1 -> 1 -> 5 -> 6)
+        
+         */
 
 var myList = new LinkedList(0);
-console.log(myList.print(), 'should be 0');
+// console.log(myList.print(), 'should be 0');
 console.log(myList.insertAfter(myList.head, 1), 'should be 1');
-console.log(myList.print(), 'should be 0, 1');
-// console.log(myList.insertAfter(myList.head.next, 3), 'should be 3');
+// console.log(myList.print(), 'should be 0, 1');
+console.log(myList.insertAfter(myList.head.next, 3), 'should be 3');
 // console.log(myList.print(), 'should be 0, 1, 3');
-// console.log(myList.insertAfter(myList.head.next, 2), 'should be 2');
+console.log(myList.insertAfter(myList.head.next, 2), 'should be 2');
 // console.log(myList.print(), 'should be 0, 1, 2, 3');
-// console.log(myList.removeAfter(myList.head), 'should be 1');
+console.log(myList.removeAfter(myList.head), 'should be 1');
 // console.log(myList.print(), 'should be 0, 2, 3');
-// console.log(myList.insertHead(-1), 'should be -1');
+console.log(myList.insertHead(-1), 'should be -1');
 // console.log(myList.print(), 'should be -1, 0, 2, 3');
-// console.log(myList.removeHead(), 'should be -1');
+console.log(myList.removeHead(), 'should be -1');
 // console.log(myList.print(), 'should be 0, 2, 3');
-// console.log(myList.appendToTail(4), 'should be 4');
+console.log(myList.appendToTail(4), 'should be 4');
 // console.log(myList.print(), 'should be 0, 2, 3, 4');
-// console.log(myList.findNode(0) === myList.head, 'should be true');
-// console.log(myList.findNode(3) === myList.head.next.next, 'should be true');
+console.log(myList.findNode(0) === myList.head, 'should be true');
+console.log(myList.findNode(3) === myList.head.next.next, 'should be true');
 // myList.insertAfter(myList.findNode(2), 2.5);
 // console.log(myList.print(), 'should be 0, 2, 2.5, 3, 4');
 // myList.removeAfter(myList.findNode(2));
