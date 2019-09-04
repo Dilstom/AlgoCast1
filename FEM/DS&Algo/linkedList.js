@@ -86,11 +86,23 @@ function LinkedList(headValue) {
  this.tail = this.head;
 }
 
+// var myArr = [1, 2, 3];
+// var myCb = function(val){
+//     console.log(val)
+// }
+
+// let forEach = function(arr, cb){
+//     arr.forEach(el => cb(el))
+// }
+
+// forEach(myArr, myCb)
+
 LinkedList.prototype.forEach = function(callback) {
  // implement me...
  let node = this.head;
  while (node) {
   console.log('cd node: ', node);
+  callback(node);
   node = node.next;
  }
 };
